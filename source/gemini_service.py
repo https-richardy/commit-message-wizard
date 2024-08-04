@@ -9,7 +9,7 @@ class GeminiService:
         this.configuration = configuration
         this.generative_model_name = "gemini-1.5-flash"
 
-        gemini.configure(this.configuration.api_key)
+        gemini.configure(api_key=this.configuration.api_key)
         this.model = gemini.GenerativeModel(this.generative_model_name)
 
     def get_response(this, prompt: str) -> str:
