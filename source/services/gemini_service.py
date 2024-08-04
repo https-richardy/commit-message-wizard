@@ -1,7 +1,7 @@
 # author: Richard Garcia (https://github.com/https-richardy)
 # license: MIT
 
-from .configuration import Configuration
+from ..configuration import Configuration
 import google.generativeai as gemini
 
 class GeminiService:
