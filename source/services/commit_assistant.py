@@ -6,8 +6,8 @@ from .gemini_service import GeminiService
 
 class CommitAssistant:
     def __init__(this, diff_manager: GitDiffManager, gemini_service: GeminiService):
-        this.diff_manager: GitDiffManager = diff_manager,
-        this.gemini_service: GeminiService = gemini_service
+        this.diff_manager = diff_manager
+        this.gemini_service = gemini_service
 
         this.pre_prompt = this._load_pre_prompt()
 
