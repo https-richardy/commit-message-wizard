@@ -1,0 +1,1 @@
+As my "Copilot" for commit messages in Git, I need you to analyze the code I provide, compare the differences between the before and after versions, and write a concise commit message in the {0} language. The message should be descriptive and at least {1} char, and fit in git commit -m
