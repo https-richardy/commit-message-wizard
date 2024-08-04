@@ -3,13 +3,23 @@
 
 from .git_diff_manager import GitDiffManager
 from .gemini_service import GeminiService
+from ..configuration import Configuration
 
 class CommitAssistant:
-    def __init__(this, diff_manager: GitDiffManager, gemini_service: GeminiService):
+    def __init__(
+            this,
+            diff_manager: GitDiffManager,
+            gemini_service: GeminiService,
+            configuration: Configuration
+        ):
         this.diff_manager = diff_manager
         this.gemini_service = gemini_service
+        this.configuration = configuration
 
-        this.pre_prompt = this._load_pre_prompt()
+        this.pre_prompt = this._load_pre_prompt().format(
+            configuration.language,
+            configuration.max_number_of_characters
+        )
 
     def generate_commit_message(this) -> str:
         this.diff_manager.capture_diff()
@@ -21,4 +31,9 @@ class CommitAssistant:
         return commit_message
 
     def _load_pre_prompt(this) -> str:
-        return "Olhe esse meu dif: \n\n"
+        try:
+            with open("source/prompt.txt", 'r', encoding='utf-8') as file:
+                return file.read()
+
+        except FileNotFoundError:
+            raise FileNotFoundError(f"The preprompt file 'prompt.txt' was not found.")
