@@ -20,5 +20,6 @@ class ServiceCollection(containers.DeclarativeContainer):
     commit_assistant = providers.Factory(
         CommitAssistant,
         diff_manager=diff_manager,
-        gemini_service=gemini_service
+        gemini_service=gemini_service,
+        configuration=configuration
     )
