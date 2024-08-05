@@ -20,6 +20,3 @@ class Program:
 
         except NoChangesDetectedException as exception:
             print(exception.message)
-
-if __name__ == "__main__":
-    Program.main()
