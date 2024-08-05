@@ -9,8 +9,18 @@ class GitDiffManager:
         this.diff_text = None
         this.temp_file = None
 
-    def capture_diff(this) -> None:
-        result = subprocess.run(["git", "diff"], capture_output=True, text=True)
+    def capture_diff(this, file_path: str = None, staged: bool=False) -> None:
+        command: list[str] = ["git", "diff"]
+
+        # If 'staged' is True, include the '--cached' flag to capture the diff of files that are staged for commit.
+        if staged:
+            command.append("--cached")
+
+        # If 'file_path' is provided, limit the diff to the specified file.
+        if file_path:
+            command.append(file_path)
+
+        result = subprocess.run(command, capture_output=True, text=True)
         this.diff_text = result.stdout
 
     def save_diff_to_temp_file(this):
