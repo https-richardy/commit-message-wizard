@@ -3,6 +3,7 @@
 
 from source import ServiceCollection, DiffOptionsParser
 from source.services import CommitAssistant
+from source.exceptions import NoChangesDetectedException
 
 services = ServiceCollection()
 
@@ -11,6 +12,9 @@ arguments_parser: DiffOptionsParser = services.arguments_parser()
 
 if __name__ == "__main__":
     options = arguments_parser.parse_arguments()
-    commit_message = assistant.generate_commit_message(options)
+    try:
+        commit_message = assistant.generate_commit_message(options)
+    except NoChangesDetectedException as exception:
+        print(exception.message)
 
     print(commit_message)
