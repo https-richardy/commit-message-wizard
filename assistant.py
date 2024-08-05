@@ -14,7 +14,7 @@ if __name__ == "__main__":
     options = arguments_parser.parse_arguments()
     try:
         commit_message = assistant.generate_commit_message(options)
+        print(commit_message)
+
     except NoChangesDetectedException as exception:
         print(exception.message)
-
-    print(commit_message)
