@@ -1,20 +1,25 @@
 # author: Richard Garcia (https://github.com/https-richardy)
 # license: MIT
 
-from source import ServiceCollection, DiffOptionsParser
-from source.services import CommitAssistant
+from source import ServiceCollection
 from source.exceptions import NoChangesDetectedException
 
-services = ServiceCollection()
+class Program:
+    services = ServiceCollection()
 
-assistant: CommitAssistant = services.commit_assistant()
-arguments_parser: DiffOptionsParser = services.arguments_parser()
+    @staticmethod
+    def main():
+        assistant = Program.services.commit_assistant()
+        arguments_parser = Program.services.arguments_parser()
+
+        options = arguments_parser.parse_arguments()
+
+        try:
+            commit_message = assistant.generate_commit_message(options)
+            print(commit_message)
+
+        except NoChangesDetectedException as exception:
+            print(exception.message)
 
 if __name__ == "__main__":
-    options = arguments_parser.parse_arguments()
-    try:
-        commit_message = assistant.generate_commit_message(options)
-        print(commit_message)
-
-    except NoChangesDetectedException as exception:
-        print(exception.message)
+    Program.main()
