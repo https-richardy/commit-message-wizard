@@ -5,6 +5,7 @@ from .git_diff_manager import GitDiffManager
 from .gemini_service import GeminiService
 from ..configuration import Configuration
 from ..diff_options import DiffOptions
+from ..exceptions import NoChangesDetectedException
 
 class CommitAssistant:
     def __init__(
@@ -32,6 +33,9 @@ class CommitAssistant:
         )
 
         this.diff_manager.save_diff_to_temp_file()
+
+        if not this.diff_manager.get_diff_text().strip():
+            raise NoChangesDetectedException()
 
         full_prompt = this.pre_prompt + this.diff_manager.get_diff_text()
         commit_message = this.gemini_service.get_response(full_prompt)
