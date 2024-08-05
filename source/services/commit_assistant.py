@@ -4,6 +4,7 @@
 from .git_diff_manager import GitDiffManager
 from .gemini_service import GeminiService
 from ..configuration import Configuration
+from ..diff_options import DiffOptions
 
 class CommitAssistant:
     def __init__(
@@ -21,8 +22,15 @@ class CommitAssistant:
             configuration.max_number_of_characters
         )
 
-    def generate_commit_message(this) -> str:
-        this.diff_manager.capture_diff()
+    def generate_commit_message(this, options: DiffOptions = None) -> str:
+        if options is None:
+            options = DiffOptions()
+
+        this.diff_manager.capture_diff(
+            file_path=options.file_path,
+            staged=options.only_staged
+        )
+
         this.diff_manager.save_diff_to_temp_file()
 
         full_prompt = this.pre_prompt + this.diff_manager.get_diff_text()
