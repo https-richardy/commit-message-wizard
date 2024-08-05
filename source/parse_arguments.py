@@ -11,15 +11,22 @@ class DiffOptionsParser:
 
     def _add_arguments(this) -> None:
         this._parser.add_argument(
-            "--only-staged",
+            "-s", "--only-staged",
             action="store_true",
             help="Capture only staged changes."
         )
 
         this._parser.add_argument(
-            "--file-path",
+            "-f", "--file-path",
             type=str,
             help="Specify a file to capture the diff from."
+        )
+
+        this._parser.add_argument(
+            "-v", "--version",
+            action="version",
+            version="v1.0.0",
+            help="Show the version of the script."
         )
 
     def parse_arguments(this) -> DiffOptions:
