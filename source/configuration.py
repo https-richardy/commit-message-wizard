@@ -4,10 +4,12 @@
 import configparser
 import os
 
+from pathlib import Path
+
 class Configuration:
-    def __init__(this, base_path=None, config_file="assistant.cfg"):
-        this.base_path = base_path or os.getcwd()
-        configuration_file = os.path.join(this.base_path, config_file)
+    def __init__(this, config_file="assistant.cfg"):
+        base_path = Path(__file__).resolve().parent.parent
+        configuration_file = os.path.join(base_path, config_file)
 
         this.configuration_parser = configparser.ConfigParser()
         this.configuration_parser.read(configuration_file)

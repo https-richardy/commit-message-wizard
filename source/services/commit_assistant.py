@@ -6,6 +6,9 @@ from .gemini_service import GeminiService
 from ..configuration import Configuration
 from ..diff_options import DiffOptions
 from ..exceptions import NoChangesDetectedException
+from pathlib import Path
+
+import os
 
 class CommitAssistant:
     def __init__(
@@ -44,7 +47,12 @@ class CommitAssistant:
 
     def _load_pre_prompt(this) -> str:
         try:
-            with open("source/prompt.txt", 'r', encoding='utf-8') as file:
+            base_path = Path(__file__).resolve().parent.parent
+
+            prompt_file = "prompt.txt"
+            prompt_file_path = os.path.join(base_path, prompt_file)
+
+            with open(prompt_file_path, 'r', encoding='utf-8') as file:
                 return file.read()
 
         except FileNotFoundError:
