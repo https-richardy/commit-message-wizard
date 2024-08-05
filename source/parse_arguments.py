@@ -25,7 +25,7 @@ class DiffOptionsParser:
         this._parser.add_argument(
             "-v", "--version",
             action="version",
-            version="v1.0.0",
+            version="v0.1.0",
             help="Show the version of the script."
         )
 
