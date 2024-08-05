@@ -4,6 +4,7 @@
 from typing import Sequence
 
 from . import services
+from . import exceptions
 
 from .service_collection import ServiceCollection
 from .configuration import Configuration
@@ -12,6 +13,7 @@ from .parse_arguments import DiffOptionsParser
 
 __all__: Sequence[str] = [
     "services",
+    "exceptions",
     "ServiceCollection",
     "Configuration",
     "DiffOptions",
